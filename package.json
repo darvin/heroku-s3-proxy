@@ -1,0 +1,32 @@
+{
+  "name": "heroku-s3-proxy",
+  "version": "0.0.1",
+  "description": "Proxies Amazon S3 buckets",
+  "main": "server.coffee",
+  "dependencies": {
+    "express": "*",
+    "coffee-script": ">= 1.4.x",
+    "jade": "*",
+    "knox": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:darvin/heroku-s3-proxy.git"
+  },
+  "keywords": [
+    "heroku",
+    "amazon",
+    "s3"
+  ],
+  "author": "Sergey Klimov <sergey.v.klimov@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "0.8.x",
+    "npm":  "1.1.x"
+  }
+
+}

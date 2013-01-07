@@ -1,0 +1,35 @@
+extends layout
+block head
+  title New static site
+
+block content
+  div.hero-unit
+    h1 New static site
+    p
+      form.form-horizontal(method='post', action='/publish', enctype='multipart/form-data')
+        div.control-group
+          label.control-label(for='inputName') Site Name
+          div.controls
+            input#inputName.span5(type='text',placeholder='Name',name="siteName")
+        div.control-group
+          label.control-label(for='inputUsers') Only for this GitHub users
+          div.controls
+            input#inputUsers.span5(type='text',placeholder='user1,user2',name="users")
+        div.control-group
+          label.control-label(for='inputOnlyMe') Only for me
+          div.controls
+            input#inputOnlyMe.span5(type='checkbox',name="onlyMe")
+
+
+        div.control-group
+          label.control-label(for='inputArchive') Archive
+          div.controls
+            input#inputArchive.span5(type='file',placeholder='Zip file',name="archive")
+        div.control-group
+          div.controls
+            button.btn.btn-primary.btn-large(type='submit') Upload!
+    p Or you can do that from command line:  
+      pre cat docs.zip | curl -F "siteName=YOUR_SITE_NAME" -F "users=YOUR_GITHUB_USERNAME" -F "archive=@-" #{baseUrl}publish/
+    p For public site:
+      pre cat docs.zip | curl -F "siteName=YOUR_SITE_NAME" -F "archive=@-" #{baseUrl}publish/
+
