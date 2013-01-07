@@ -3,30 +3,7 @@ html
   include inc/header
 
   body
-    div.navbar.navbar-fixed-top
-      div.navbar-inner
-        div.container
-          a(data-toggle='collapse', data-target='.nav-collapse').btn.btn-navbar
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a(href='#').brand Static Site Hosting
-          ul.nav
-            li
-              a(href='/') New Site
-            if user
-              li
-                a(href='/list') Your sites
-            li
-              a(href='http://github.com/darvin/heroku-static-sites-hosting') View on GitHub
-
-          if !user
-            a.btn-auth.btn-github.pull-right(href="/auth/github") Login with <b>GitHub</b>
-          else
-            span.pull-right
-              a(href=user.profileUrl) <b>#{user.username}</b>
-              a.btn(href="/logout") logout
-    div.container
+    div.container-narrow
       block content
       include inc/footer
 

@@ -1,35 +1,35 @@
 extends layout
 block head
-  title New static site
+  title Amazon S3 Proxy
+  script(type='text/javascript')
+    function goTo()
+    {
+        var key = document.forms[0].key.value;
+        var secret = document.forms[0].secret.value;
+        var bucket = document.forms[0].bucket.value;
+        window.location += key +"/" +secret +"/" +bucket +"/"
+        return false;
+    }
 
 block content
   div.hero-unit
-    h1 New static site
+    h1 Go to Amazon S3 Bucket
     p
-      form.form-horizontal(method='post', action='/publish', enctype='multipart/form-data')
+      form.form-horizontal(action="",method="get",onsubmit="return goTo()")
         div.control-group
-          label.control-label(for='inputName') Site Name
+          label.control-label(for='inputKey') Access Key Id
           div.controls
-            input#inputName.span5(type='text',placeholder='Name',name="siteName")
+            input#inputKey.span5(type='text',name="key")
         div.control-group
-          label.control-label(for='inputUsers') Only for this GitHub users
+          label.control-label(for='inputSecret') Secret Access Key
           div.controls
-            input#inputUsers.span5(type='text',placeholder='user1,user2',name="users")
+            input#inputSecret.span5(type='text',name="secret")
         div.control-group
-          label.control-label(for='inputOnlyMe') Only for me
+          label.control-label(for='inputBucket') Bucket Name
           div.controls
-            input#inputOnlyMe.span5(type='checkbox',name="onlyMe")
-
-
-        div.control-group
-          label.control-label(for='inputArchive') Archive
-          div.controls
-            input#inputArchive.span5(type='file',placeholder='Zip file',name="archive")
+            input#inputBucket.span5(type='text',name="bucket")
         div.control-group
           div.controls
-            button.btn.btn-primary.btn-large(type='submit') Upload!
-    p Or you can do that from command line:  
-      pre cat docs.zip | curl -F "siteName=YOUR_SITE_NAME" -F "users=YOUR_GITHUB_USERNAME" -F "archive=@-" #{baseUrl}publish/
-    p For public site:
-      pre cat docs.zip | curl -F "siteName=YOUR_SITE_NAME" -F "archive=@-" #{baseUrl}publish/
-
+            button.btn.btn-primary.btn-large(type='submit') Go!
+    p Or just create link manually:
+      pre #{baseUrl}ACCESS_KEY_ID/SECRET_ACCESS_KEY/BUCKET_NAME/
