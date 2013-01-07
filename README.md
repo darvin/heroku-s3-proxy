@@ -1,10 +1,10 @@
-#Static sites hosting
+# Amazon S3 proxy
 
-Stores uploaded files in MongoDB. Main purpose - allow to publish generated documentation no Heroku
+Proxies to access Amazon S3 bucket via specifying key/secret pair in URL 
 
 ## Usage
-You can upload `.zip` file on main page or you can do that from command line
+Go to [main page](http://s3proxy.herokuapp.com/) or just specify yours credentials in URL:
 
 ```
-cat docs.zip |curl -F "siteName=MY_SITE_NAME" -F "archive=@-" http://static-sites-hosting.herokuapp.com:3000/publish/
+http://s3proxy.herokuapp.com/ACCESS_KEY_ID/SECRET_ACCESS_KEY/BUCKET_NAME/
 ```
