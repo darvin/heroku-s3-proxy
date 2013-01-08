@@ -36,7 +36,8 @@ app.configure 'production', () ->
 console.error routes.bucketFile
 
 app.get '/',  routes.home
-app.get "/:id/:key/:bucket/*", routes.bucketFile
+app.get "/:id/:key/:bucket*/", routes.bucketList
+app.get "/:id/:key/:bucket*", routes.bucketFile
 
 app.listen PORT, ()->
   return console.log "Listening on #{PORT}\nPress CTRL-C to stop server."

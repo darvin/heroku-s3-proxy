@@ -1,0 +1,18 @@
+extends layout
+block head
+  title Listing of files
+
+block content
+  div.hero-unit
+    h1 files
+    p
+      table.table.table-striped.table-hover
+          each file in files
+            tr
+              td
+                img(src="#{file.icon}")
+              td 
+                a(href="#{file.path}") #{file.name}
+              td 
+                if !file.isFolder
+                    #{file.size}
