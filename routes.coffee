@@ -1,5 +1,7 @@
 knox = require 'knox'
 filesize = require 'filesize'
+moment = require 'moment'
+
 module.exports =
   home: (req, res, next)->
     res.render "home"
@@ -48,7 +50,7 @@ module.exports =
           name:item.Key
           path:item.Key
           size:filesize(item.Size)
-          modified:item.LastModified
+          modified:moment(item.LastModified).calendar()
           isFolder: false
         }
 
