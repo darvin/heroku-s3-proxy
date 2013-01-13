@@ -69,7 +69,6 @@ module.exports =
       if path_match
         path_last_component = path_match[1]
 
-      console.error result
       res.render "list", {
         files:result
         path:path_last_component
