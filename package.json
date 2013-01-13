@@ -7,7 +7,8 @@
     "express": "*",
     "coffee-script": ">= 1.4.x",
     "jade": "*",
-    "knox": "*"
+    "knox": "*",
+    "filesize":"*"
   },
   "devDependencies": {},
   "scripts": {

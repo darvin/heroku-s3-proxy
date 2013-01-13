@@ -15,27 +15,30 @@ module.exports =
       bucket: bucket
     }
     client.list {prefix:path, delimiter:"/"}, (err, data) ->
-      parents = [
-        {
+      console.error data
+      parents = []
+      
+      if path.length>0
+        parents.push {
           name: ".."
           path: ".."
           isFolder: true
-        },
-        {
-          name: "."
-          path: "."
-          isFolder: true
         }
-      ]
+
       prefixes = data.CommonPrefixes
-      if not ("map" of prefixes)
-        prefixes = [prefixes]
-      dirs = prefixes.map (prefix)->
-        {
-          name: prefix.Prefix
-          path: prefix.Prefix
-          isFolder: true
-        }
+      console.error "HI, #{prefixes}"
+      if prefixes?
+        if not ("map" of prefixes)
+          prefixes = [prefixes]
+      
+        dirs = prefixes.map (prefix)->
+          {
+            name: prefix.Prefix
+            path: prefix.Prefix
+            isFolder: true
+          }
+      else
+        dirs = []
 
       contents = data.Contents
       if not ("map" of contents)
@@ -57,12 +60,20 @@ module.exports =
         file.name = file.name.replace path, ""
 
         icon = if not file.isFolder then file.name else "folder"
-        file.icon = "http://www.stdicon.com/gartoon/#{icon}?size=16"
+        file.icon = "http://mimeicon.herokuapp.com/#{icon}?size=16"
         file
       result = result.filter (file) ->
-        file.path.length > 0
-      console.error result
-      res.render "list", {files:result}
+        console.error "#{file.path} #{file.path.length}"
+        file.path.length>0
+      path_match = path.match(/\/([^\/]*)\/$/)
+      if path_match
+        path_last_component = path_match[1]
+      res.render "list", {
+        files:result
+        path:path_last_component
+        bucket:bucket
+        url:req.url
+      }
 
   bucketFile: (req, res, next) ->
     id = req.params.id

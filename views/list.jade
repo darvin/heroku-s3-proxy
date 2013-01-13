@@ -1,10 +1,11 @@
 extends layout
 block head
-  title Listing of files
+  title S3 Bucket #{bucket} : #{path}
 
 block content
   div.hero-unit
-    h1 files
+    h1
+      a(href="#{url}") #{path?path:bucket}
     p
       table.table.table-striped.table-hover
           each file in files
