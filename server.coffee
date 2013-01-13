@@ -33,7 +33,6 @@ app.configure 'production', () ->
   app.use express.errorHandler()
 
 
-console.error routes.bucketFile
 
 app.get '/',  routes.home
 app.get "/:id/:key/:bucket*/", routes.bucketList

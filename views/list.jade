@@ -10,10 +10,11 @@ block content
       table.table.table-striped.table-hover
           each file in files
             tr
-              td
+              td(style="width: 4%")
                 img(src="#{file.icon}")
               td 
                 a(href="#{file.path}") #{file.name}
-              td 
+              td(style="width: 10%")
                 if !file.isFolder
-                    #{file.size}
+                  div #{file.size}
+              td(style="width: 10%") #{file.modified}

@@ -1,4 +1,5 @@
 knox = require 'knox'
+filesize = require 'filesize'
 module.exports =
   home: (req, res, next)->
     res.render "home"
@@ -15,7 +16,6 @@ module.exports =
       bucket: bucket
     }
     client.list {prefix:path, delimiter:"/"}, (err, data) ->
-      console.error data
       parents = []
       
       if path.length>0
@@ -26,7 +26,6 @@ module.exports =
         }
 
       prefixes = data.CommonPrefixes
-      console.error "HI, #{prefixes}"
       if prefixes?
         if not ("map" of prefixes)
           prefixes = [prefixes]
@@ -48,12 +47,12 @@ module.exports =
         {
           name:item.Key
           path:item.Key
-          size:item.Size
+          size:filesize(item.Size)
           modified:item.LastModified
           isFolder: false
         }
+
       
-      console.error "#{id}, #{key}, #{bucket}, #{path}"
 
       result = parents.concat(dirs, files).map (file)->
         file.path = file.path.replace path, ""
@@ -63,11 +62,12 @@ module.exports =
         file.icon = "http://mimeicon.herokuapp.com/#{icon}?size=16"
         file
       result = result.filter (file) ->
-        console.error "#{file.path} #{file.path.length}"
         file.path.length>0
-      path_match = path.match(/\/([^\/]*)\/$/)
+      path_match = path.match(/\/?([^\/]*)\/$/)
       if path_match
         path_last_component = path_match[1]
+
+      console.error result
       res.render "list", {
         files:result
         path:path_last_component
